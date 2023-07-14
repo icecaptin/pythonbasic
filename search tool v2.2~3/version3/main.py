@@ -2,48 +2,47 @@ from problem import *
 from optimizer import *
 
 def main():
-    p, pType = selectProblem() #pType: 1(Numeric) or 2(Tsp)
-    alg = selectAlgorithm(pType)
-    alg.run(p)
-    
-    p.describe()
-    alg.displaySetting()
-    # Report results
+    p, pType = selectProblem()  # 문제 선택
+    alg = selectAlgorithm(pType)  # 알고리즘 선택
+    alg.run(p)  # 알고리즘 실행
+
+    p.describe()  # 문제 설명
+    alg.displaySetting()  # 알고리즘 설정 출력
+    # 결과 보고
     p.report()
 
 def selectProblem():
-
-    print("Select the problem type:")
+    # 문제 유형 선택
+    print("문제 유형을 선택하세요:")
     print("1. Numeric")
     print("2. Tsp")
-
-    pType = int(input("Enter the number: "))
+    pType = int(input("숫자를 입력하세요: "))
 
     if pType == 1:
-        p = Numeric() 
+        p = Numeric()  # Numeric 문제 객체 생성
     elif pType == 2:
-        p = Tsp()
+        p = Tsp()  # Tsp 문제 객체 생성
     else:
-        print("error")
-        raise Exception #예외처리
-    
-    p.setVariables()
+        print("에러")
+        raise Exception  # 예외 처리
+
+    p.setVariables()  # 변수 설정
     return p, pType
 
 def selectAlgorithm(pType):
     print()
-    print("Select the algorithm: ")
+    print("알고리즘을 선택하세요: ")
     print(" 1. Steepest Ascent")
     print(" 2. First Choice")
-    if(pType == 1):
-        print(" 3. Gradient Descent")      
+    if pType == 1:
+        print(" 3. Gradient Descent")
 
-    aType = int(input("Enter the number: "))
-    
-    optimizers = {1:'SteepestAscent' , 2:'FirstChoice' , 3:'GradientDescent', 4:'Stochastic'}    
-    alg = eval(optimizers[aType] + '()') #키값에 따라 value가 나와야. 키는 aType에 다 들어가있다. optimizers[aType] 이것만 하면 string이 된다.
-    #그냥 string을 원하는게 아니라 실행하는게 할당되어야... 즉 "SteepestAscent()" 라는 글자가 아니라 SteepestAscent()라는 오브젝트가 되어야하니까.
-    alg.setVariables(pType)    
+    aType = int(input("숫자를 입력하세요: "))
+
+    # 알고리즘 선택
+    optimizers = {1: 'SteepestAscent', 2: 'FirstChoice', 3: 'GradientDescent', 4: 'Stochastic'}
+    alg = eval(optimizers[aType] + '()')  # 문자열로 된 알고리즘 이름을 클래스 객체로 변환
+    alg.setVariables(pType)  # 변수 설정
     return alg
 
 main()
