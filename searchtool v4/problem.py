@@ -82,7 +82,7 @@ class Numeric(Problem):
             varNames.append(data[0])
             low.append(float(data[1]))
             up.append(float(data[2]))
-            line = infile.readline()
+        line = infile.readline()
         infile.close()
         self._domain = [varNames, low, up]  # 변수 도메인 설정
 
